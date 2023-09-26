@@ -53,12 +53,12 @@ export default {
 
 @media screen and (max-width: 768px) {
   .footer {
-    flex-direction: column; 
-    text-align: center; 
+    flex-direction: column;
+    text-align: center;
   }
 
   .footer-logo {
-    margin: 0 auto; 
+    margin: 0 auto;
   }
 }
 </style>

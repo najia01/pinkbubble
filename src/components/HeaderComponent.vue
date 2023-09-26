@@ -21,12 +21,18 @@
       <nav v-show="navOpen">
         <div class="sidemenu-wrapper">
           <ul class="sidemenu-list">
-            <li class="sidemenu-item"><a href="">Home</a></li>
+            <li class="sidemenu-item">
+              <router-link to="/">Home</router-link>
+            </li>
             <li class="sidemenu-item">
               <a href="">Search by ingredients</a>
             </li>
-            <li class="sidemenu-item"><a href="">Search by category</a></li>
-            <li class="sidemenu-item"><a href="">About</a></li>
+            <li class="sidemenu-item">
+              <router-link :to="{ name: 'LetterSearch', params: { letter: 'A' } }">Search by Letter</router-link>
+            </li>
+            <li class="sidemenu-item">
+              <router-link to="/aboutview">About</router-link>
+            </li>
           </ul>
         </div>
       </nav>
@@ -35,13 +41,29 @@
 </template>
 
 <script>
+import { searchByLetter } from "@/services/ApiCocktailDb.js";
+
 export default {
   name: "HeaderComponent",
   props: {},
   data() {
     return {
+      searchResults: [],
       navOpen: false,
     };
+  },
+  methods: {
+    async LetterSearch(category) {
+      this.searchResults = [];
+      try {
+        const response = await searchByLetter(this.letter);
+       
+        const data = await response.json();
+        this.searchResults = data.drinks || [];
+      } catch (error) {
+        console.error("Erreur lors de la recherche par lettre", error);
+      }
+    },
   },
 };
 </script>
