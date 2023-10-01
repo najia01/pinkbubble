@@ -2,9 +2,13 @@
   <HeaderComponent />
   <div class="cocktail-detail" v-if="cocktail">
     <div class="oneCocktail-card">
-      <h3>{{ cocktail.strDrink }}</h3>
       <figure>
-        <img :src="cocktail.strDrinkThumb" :alt="cocktail.strDrink" />
+        <img
+          class="imgCocktail"
+          :src="cocktail.strDrinkThumb"
+          :alt="cocktail.strDrink"
+        />
+        <figcaption>{{ cocktail.strDrink }}</figcaption>
       </figure>
     </div>
     <span class="category">{{ cocktail.strCategory }}</span>
@@ -18,7 +22,7 @@
           {{ ingredient }}
         </li>
       </ul>
-      <router-link :to="{ name: 'home' }" class="back-link">Retour</router-link>
+      <button @click="goBack">Retour</button>
     </div>
   </div>
   <FooterComponent />
@@ -37,7 +41,11 @@ export default {
       cocktail: {},
     };
   },
-
+  methods: {
+    goBack() {
+      this.$router.go(-1);
+    },
+  },
   computed: {
     ingredients() {
       const ingredients = [];
@@ -53,7 +61,7 @@ export default {
     },
   },
   async created() {
-    const { idDrink } = this.$route.params;
+    const idDrink = this.$route.params.idDrink;
     try {
       const response = await getOneCocktail(idDrink);
       const data = await response.json();
@@ -66,9 +74,18 @@ export default {
 </script>
 
 <style>
-h3 {
-  font-size: 1.8rem;
-  font-weight: 600;
+.imgCocktail {
+  width: 400px;
+  border-radius: 20px;
+}
+.imgCocktail:hover {
+  opacity: 50%;
+}
+figcaption {
+  font-size: 1.7rem;
+  font-weight: 500;
+  color: deeppink;
+  margin-top: 30px;
 }
 .cocktail-detail {
   display: flex;
@@ -76,27 +93,28 @@ h3 {
   align-content: center;
   justify-content: center;
   align-items: center;
+  margin-top: 60px;
 }
 .category {
   font-size: 1.2rem;
-  color: #fff;
+  color: #da395b;
   font-style: italic;
 }
 .alcool {
   font-size: 1rem;
-  color: #fff;
+  color: #da395b;
 }
 
 .instructions {
   font-size: 1.5rem;
-  color: #fff;
+  color: #f36172;
   line-height: 1.5;
   text-align: justify;
   padding: 30px;
 }
 .ingredient {
   font-size: 1.3rem;
-  color: #fff;
+  color: #da395b;
   line-height: 1.5;
   text-align: justify;
   padding: 30px;
@@ -104,22 +122,23 @@ h3 {
 li {
   list-style-type: none;
   font-size: 1.2rem;
-  color: #fff;
+  color: #f36172;
 }
 
-.back-link {
+button {
   display: inline-block;
   padding: 10px 20px;
-  margin-top: 50px;
+  margin-top: 40px;
   background-color: #96142e;
   color: #fff;
   text-decoration: none;
   border: 2px solid #96142e;
   border-radius: 5px;
   transition: background-color 0.3s, color 0.3s;
+  margin-bottom: 20px;
 }
 
-.back-link:hover {
+button:hover {
   background-color: transparent;
   color: #96142e;
 }

@@ -3,15 +3,15 @@
     <a href="#"
       ><img class="logo" src="../assets/logo.png" alt="logo pinkbubble"
     /></a>
-    <img class="hero" src="../assets/hero.jpg" alt="logo pinkbubble" />
+    <img class="hero" src="../assets/hero3.jpeg" alt="image cocktail" />
     <p class="hero-paragraphe">
       Bienvenue dans l'univers pétillant de Pink Bubble, où la créativité
-      s'exprime à travers des cocktails sans alcool aussi délicieux que colorés
-      !
+      s'exprime à travers des cocktails avec ou sans alcool aussi délicieux que
+      colorés !
     </p>
     <div id="sidemenu">
       <button
-        class="sidemenu-btn"
+        class="sidemenu-btn rose-bars"
         v-on:click="navOpen = !navOpen"
         v-bind:class="{ active: navOpen }"
       >
@@ -25,10 +25,18 @@
               <router-link to="/">Home</router-link>
             </li>
             <li class="sidemenu-item">
-              <a href="">Search by ingredients</a>
+              <router-link to="/ingredient">Search by Ingredient</router-link>
             </li>
             <li class="sidemenu-item">
-              <router-link :to="{ name: 'LetterSearch', params: { letter: 'A' } }">Search by Letter</router-link>
+              <router-link :to="{ name: 'CategoryResult' }"
+                >Category</router-link
+              >
+            </li>
+            <li class="sidemenu-item">
+              <router-link
+                :to="{ name: 'LetterSearch', params: { letter: 'A' } }"
+                >Search by Letter</router-link
+              >
             </li>
             <li class="sidemenu-item">
               <router-link to="/aboutview">About</router-link>
@@ -53,11 +61,11 @@ export default {
     };
   },
   methods: {
-    async LetterSearch(category) {
+    async LetterSearch() {
       this.searchResults = [];
       try {
         const response = await searchByLetter(this.letter);
-       
+
         const data = await response.json();
         this.searchResults = data.drinks || [];
       } catch (error) {
@@ -72,17 +80,16 @@ export default {
 <style>
 .hero {
   width: 100%;
-  height: 800px;
-  background-image: url("../assets/hero.jpg");
+  height: auto;
+  background-color: deeppink;
 }
 .hero-paragraphe {
-  position: absolute;
-  bottom: -400px;
-
-  left: 0;
-  right: 0;
+  font-size: 2rem;
+  text-align: center;
   padding: 20px;
-  color: white;
+  color: deeppink;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  /* -webkit-text-stroke: 1px black; */
 }
 
 .header a {
@@ -98,7 +105,9 @@ export default {
   width: 220px;
   margin: 0 auto;
 }
-
+nav a.router-link-exact-active {
+  color: deeppink;
+}
 #sidemenu {
   position: absolute;
   top: 30px;
@@ -136,13 +145,14 @@ export default {
   font-size: 1.6em;
   padding: 0.5em;
   display: block;
-  color: white;
+  color: deeppink;
   transition: 0.4s ease;
 }
 
 .sidemenu-item a:hover {
-  background: lightgrey;
-  color: dimgrey;
+  background: #920d23;
+  color: #dd3f5b;
+  opacity: 90%;
 }
 p {
   font-family: Georgia, "Times New Roman", Times, serif;
@@ -151,29 +161,74 @@ p {
 }
 
 /* *-*-*-*-MEDIAQUERIES*-*-*-*-*- */
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 760px) {
+  .header {
+    display: flex;
+    flex-direction: column;
+  }
+
   .hero {
+    width: 100%;
     height: auto;
   }
 
   .hero-paragraphe {
-    display: none;
-  }
-
-  .header {
-    flex-direction: column;
+    text-align: center;
+    font-size: 1rem;
   }
 
   .logo {
-    margin-bottom: 20px;
+    width: 70%;
+    margin: 0 auto;
+  }
+  #sidemenu {
+    top: 0;
+  }
+  .sidemenu-item {
+    font-size: 0.8rem;
+  }
+  .sidemenu-btn {
+    display: block;
+  }
+
+  nav {
+    flex-direction: column;
+  }
+
+  .sidemenu-wrapper {
+    padding: 0;
+  }
+
+  .sidemenu-list {
+    flex-direction: column;
   }
 }
-@media screen and (max-width: 1500px) {
+
+@media screen and (min-width: 761px) and (max-width: 1024px) {
+  .header {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .hero {
+    width: 100%;
+    height: auto;
+  }
+
   .hero-paragraphe {
-    position: absolute;
-    bottom: -125px;
-    padding: 20px;
-    color: white;
+    width: 70%;
+  }
+
+  .logo {
+    width: 30%;
+  }
+
+  nav {
+    flex-direction: row;
+  }
+
+  .sidemenu-list {
+    flex-direction: row;
   }
 }
 </style>

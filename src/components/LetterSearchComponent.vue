@@ -1,35 +1,57 @@
 <template>
-  <div class="letter-search-bar">
-    <!-- <div class="letter-buttons"> -->
-    <button
-      v-for="letter in alphabet"
-      :key="letter"
-      @click="setSearchLetter(letter)"
-      class="letter-button"
-    >
-      {{ letter }}
-    </button>
+  <div class="letter-search">
+    <!-- Barre de recherche par lettre -->
+    <div class="letter-search-bar">
+      <router-link
+        v-for="letter in letters"
+        :to="'/search/letter/' + letter"
+        :key="letter"
+        class="letter-button"
+      >
+        {{ letter }}
+      </router-link>
+    </div>
   </div>
-  <!-- </div> -->
+
+  <!-- Résultats de la recherche -->
+  <div class="search-results">
+    <div class="cocktail-cards">
+      <router-link
+        v-for="cocktail in searchResults"
+        :key="cocktail.idDrink"
+        :to="'/cocktail/' + cocktail.idDrink"
+        class="cocktail-card"
+      >
+        <div class="cocktail-image">
+          <img :src="cocktail.strDrinkThumb" :alt="cocktail.strDrink" />
+          <div class="cocktail-title">{{ cocktail.strDrink }}</div>
+        </div>
+        <div class="cocktail-details">
+          <div class="cocktail-instructions">
+            <h4>Instructions:</h4>
+            <p>{{ cocktail.instructions }}</p>
+          </div>
+          <div class="cocktail-ingredients">
+            <h4>Ingredients:</h4>
+            <ul>
+              <li v-for="ingredient in cocktail.ingredients" :key="ingredient">
+                {{ ingredient }}
+              </li>
+            </ul>
+          </div>
+        </div>
+      </router-link>
+    </div>
+  </div>
 </template>
 
 <script>
-import { ref } from "vue";
-
 export default {
   name: "LetterSearchComponent",
-  props: {
-    setSearchLetter: Function,
-    
-    letter: {
-      type: String,
-      required: true,
-    },
-  },
-  
+
   data() {
     return {
-      alphabet: "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split(""),
+      letters: "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split(""),
     };
   },
 };
@@ -38,27 +60,32 @@ export default {
 <style scoped>
 .letter-search-bar {
   display: flex;
+  flex-wrap: wrap;
+  align-content: center;
   justify-content: center;
-  margin: 20px 0;
+  align-items: center;
 }
-
 .letter-buttons {
   display: flex;
   flex-wrap: wrap;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
 }
 
 .letter-button {
   padding: 10px 20px;
   margin: 5px;
-  background-color: #007bff;
+  background-color: crimson;
   color: #fff;
   border: none;
   border-radius: 4px;
   cursor: pointer;
   transition: background-color 0.3s;
+  text-decoration: none;
 }
 
 .letter-button:hover {
-  background-color: #0056b3;
+  background-color: #181317;
 }
 </style>

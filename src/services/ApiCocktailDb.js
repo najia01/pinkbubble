@@ -15,25 +15,38 @@ function searchByCocktail(searchText) {
   return fetch(apiUrl);
 }
 
-// function searchByCategory() {
-//   return fetch(
-//     "https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=Cocktail"
-//   );
-// }
+function getCategory() {
+  return fetch("https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list");
+}
+
+function CocktailByCategory(category) {
+  const url = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${encodeURIComponent(
+    category
+  )}`;
+  return fetch(url);
+}
 
 function searchByIngredients() {
-  return fetch(
-    "https://www.www.thecocktaildb.com/api/json/v1/1/filter.php?i=Gin"
-  );
+  return fetch("https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list");
 }
 
-function searchByLetter() {
-  return fetch("https://www.thecocktaildb.com/api/json/v1/1/search.php?f=a");
+function getIngredientByName(ingredientName) {
+  const url = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${ingredientName}`;
+  return fetch(url);
 }
+
+function searchByLetter(letter) {
+  const apiUrl = `https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${letter}`;
+  return fetch(apiUrl);
+}
+
 export {
   getRandomCocktails,
   getOneCocktail,
   searchByCocktail,
   searchByIngredients,
   searchByLetter,
+  getIngredientByName,
+  getCategory,
+  CocktailByCategory,
 };

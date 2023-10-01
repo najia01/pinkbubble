@@ -7,10 +7,10 @@
       sans alcool !</span
     >
     <p class="presentation">
-      Notre site est dédié à l'art de créer des cocktails sans alcool délicieux
-      et sophistiqués, parfaits pour toutes les occasions. Que vous soyez à la
-      recherche d'une boisson pétillante pour une soirée entre amis, d'un
-      rafraîchissement estival pour vous détendre au bord de la piscine, ou
+      Notre site est aussi dédié à l'art de créer des cocktails sans alcool
+      délicieux et sophistiqués, parfaits pour toutes les occasions. Que vous
+      soyez à la recherche d'une boisson pétillante pour une soirée entre amis,
+      d'un rafraîchissement estival pour vous détendre au bord de la piscine, ou
       d'une alternative élégante pour célébrer un événement spécial, Pink Bubble
       a la recette qu'il vous faut. Nos experts mixologues ont soigneusement
       élaboré une collection de cocktails sans alcool alliant saveurs exquises,
@@ -22,7 +22,8 @@
       première fois, Pink Bubble est là pour vous inspirer et vous guider dans
       la création de boissons irrésistibles qui plairont à tous les palais.
       Rejoignez-nous dans cette aventure gustative et découvrez l'art de la
-      mixologie sans alcool avec Pink Bubble. Santé et à votre santé !
+      mixologie avec ou sans alcool avec Pink Bubble.<br />
+      Santé et à votre santé !
     </p>
   </div>
   <div class="pictureAbout">
@@ -48,7 +49,7 @@ export default {
   font-size: 2rem;
   font-weight: 600;
   text-transform: capitalize;
-  color: #fff;
+  color: deeppink;
 }
 .presentation {
   text-align: justify;
@@ -57,10 +58,11 @@ export default {
   font-weight: 500;
   padding: 50px;
   line-height: 1.5;
+  color: #da395b;
 }
 .spIntro {
   font-size: 1.5rem;
   font-style: italic;
-  color: #a32308;
+  color: pink;
 }
 </style>

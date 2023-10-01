@@ -31,7 +31,6 @@
       </p>
 
       <div class="search-bar">
-        <!-- <form @submit.prevent="performSearch"> -->
         <input
           v-model="searchText"
           type="text"
@@ -42,19 +41,31 @@
         <button @click.prevent="performSearch" class="SearchBar-button">
           Search
         </button>
-        <!-- </form> -->
       </div>
     </div>
 
-    <!-- <h2>Résultats de la recherche :</h2> -->
-
     <div class="responseSearch" v-if="searchResults.length > 0">
       <ul class="detailsSearch">
-        <li v-for="cocktail in searchResults" :key="cocktail.idDrink">
-          <h3>{{ cocktail.strDrink }}</h3>
-          <figure>
-            <img :src="cocktail.strDrinkThumb" :alt="cocktail.strDrink" />
-          </figure>
+        <li
+          class="cokctailList"
+          v-for="cocktail in searchResults"
+          :key="cocktail.idDrink"
+        >
+          <router-link
+            :to="{
+              name: 'OneCocktailDetail',
+              params: { idDrink: cocktail.idDrink },
+            }"
+          >
+            <figure>
+              <img
+                class="searchImg"
+                :src="cocktail.strDrinkThumb"
+                :alt="cocktail.strDrink"
+              />
+              <figcaption class="titleCock">{{ cocktail.strDrink }}</figcaption>
+            </figure>
+          </router-link>
         </li>
       </ul>
     </div>
@@ -62,25 +73,30 @@
     <!-- Pictures  -->
     <h1>Les tendances du moment</h1>
     <div class="nonalcohol">
-      <img src="../assets/anil.png" alt="cocktail anil" />
-      <img src="../assets/blu.png" alt="cocktail anil" />
-      <img src="../assets/bleu.png" alt="cocktail anil" />
-      <img src="../assets/citron.png" alt="cocktail anil" />
-      <img src="../assets/charlotte.png" alt="cocktail anil" />
+      <img class="cocktailsImg" src="../assets/anil.png" alt="cocktail anil" />
+      <img class="cocktailsImg" src="../assets/blu.png" alt="cocktail anil" />
+      <img class="cocktailsImg" src="../assets/bleu.png" alt="cocktail anil" />
+      <!-- <img
+        class="cocktailsImg"
+        src="../assets/citron.png"
+        alt="cocktail anil"
+      /> -->
+      <img
+        class="cocktailsImg"
+        src="../assets/charlotte.png"
+        alt="cocktail anil"
+      />
     </div>
     <!-- texte  -->
 
     <h1 class="pink">PINK BUBBLE C'EST</h1>
     <p class="intro">
-      Des recettes conçues pour vous offrir une explosion de saveurs sans
-      l'influence de l'alcool. Que vous recherchiez une boisson rafraîchissante
-      pour une chaude journée d'été, un cocktail sans alcool festif pour une
-      soirée entre amis, ou une option délicieuse pour les designated drivers,
-      PinkPubble a la solution parfaite pour vous.De la classique Virgin Mojito
-      à notre création signature, le Pink Sunrise Bliss, nos cocktails sans
-      alcool sont conçus pour éveiller vos sens et égayer vos moments
-      spéciaux.PinkPubble vous accompagne avec des instructions faciles à suivre
-      et des conseils pour réussir chaque préparation.
+      Une collection diversifiée de recettes de cocktails, des classiques
+      revisités aux créations originales, le tout présenté avec des instructions
+      claires et faciles à suivre. Que vous prépariez un cocktail pour une
+      soirée entre amis, une fête spéciale ou tout simplement pour vous détendre
+      après une longue journée, nos recettes vous guideront vers l'excellence de
+      la mixologie.
     </p>
 
     <h1 class="randPict">Vous aimerez aussi...</h1>
@@ -94,7 +110,7 @@
           }"
         >
           <div class="cocktail-card">
-            <h3>{{ cocktail.strDrink }}</h3>
+            <h3 class="TitleCocktails">{{ cocktail.strDrink }}</h3>
             <figure>
               <img :src="cocktail.strDrinkThumb" :alt="cocktail.strDrink" />
             </figure>
@@ -112,19 +128,19 @@
 <script>
 import HeaderComponent from "@/components/HeaderComponent.vue";
 import FooterComponent from "@/components/FooterComponent.vue";
+
 import { defineComponent } from "vue";
 import { Carousel, Navigation, Slide } from "vue3-carousel";
 import "vue3-carousel/dist/carousel.css";
-
 import { getRandomCocktails } from "@/services/ApiCocktailDb.js";
 import { searchByCocktail } from "@/services/ApiCocktailDb.js";
-// import { ref } from "vue";
 
 export default defineComponent({
   name: "HomeView",
   components: {
     HeaderComponent,
     FooterComponent,
+
     Carousel,
     Slide,
     Navigation,
@@ -135,6 +151,24 @@ export default defineComponent({
       searchText: "",
       searchResults: [],
       cocktails: [],
+      settings: {
+        itemsToShow: 1,
+        snapAlign: "center",
+      },
+      breakpoints: {
+        550: {
+          itemsToShow: 2,
+          snapAlign: "start",
+        },
+        800: {
+          itemsToShow: 3,
+          snapAlign: "center",
+        },
+        1200: {
+          itemsToShow: 4,
+          snapAlign: "start",
+        },
+      },
     };
   },
 
@@ -173,7 +207,7 @@ export default defineComponent({
 
 <style>
 body {
-  background-color: #181317;
+  background-color: black;
 }
 
 .drinks {
@@ -187,6 +221,9 @@ body {
   width: 300px;
   height: 350px;
   border-radius: 20px;
+}
+.color-drinks:hover {
+  opacity: 70%;
 }
 
 /* Search bar */
@@ -202,7 +239,7 @@ body {
   font-family: "OpenSans-Bold", sans-serif;
   text-align: center;
   font-style: italic;
-  color: #fff;
+  color: deeppink;
 }
 
 .citation {
@@ -210,7 +247,7 @@ body {
   font-family: "OpenSans-Bold", sans-serif;
   font-style: italic;
   text-align: center;
-  color: #fff;
+  color: deeppink;
   padding: 30px;
   line-height: 2;
 }
@@ -219,7 +256,7 @@ body {
   font-size: 1.5rem;
   font-family: "OpenSans-Bold", sans-serif;
   text-transform: capitalize;
-  color: #fff;
+  color: deeppink;
 }
 
 input,
@@ -234,7 +271,7 @@ button {
 }
 
 .SearchBar-input::placeholder {
-  color: white;
+  color: deeppink;
   font-style: italic;
   opacity: 0.6;
 }
@@ -243,7 +280,6 @@ button {
   height: 3em;
   display: flex;
   border-radius: 4em;
-  background-color: #a32308;
 }
 .search-bar:hover .SearchBar-input {
   padding-left: 2em;
@@ -253,14 +289,17 @@ button {
 .search-bar .SearchBar-input {
   width: 0;
   font-size: 1.2em;
-  color: white;
+  color: deeppink;
   transition: 0.45s;
 }
+
 .search-bar .SearchBar-button {
   border-radius: 50%;
   height: 3.5em;
   transition: 0.3s;
-  color: white;
+  color: pink;
+  padding: inherit;
+  margin-top: inherit;
 }
 .search-bar .SearchBar-button:active {
   transform: scale(0.85);
@@ -283,16 +322,28 @@ button {
 .detailsSearch {
   display: contents;
 }
-/* cocktails sans alcool*/
+.titleCock {
+  text-decoration: none;
+}
+.cokctailList a {
+  text-decoration: none;
+}
+.searchImg {
+  width: 300px;
+  border-radius: 20px;
+}
+.searchImg:hover {
+  transform: scale(1.2);
+}
 .randPict {
-  color: #96142e;
+  color: deeppink;
 }
 .nonalcohol {
   width: 100%;
   height: 500px;
   display: flex;
-  justify-content: space-around;
   align-items: center;
+  justify-content: center;
 }
 .containerCocktail {
   display: flex;
@@ -305,22 +356,23 @@ button {
   flex-direction: column;
   align-items: center;
 }
-figure {
-  width: 300px;
-  height: fit-content;
-}
-img {
+
+.cocktailsImg {
   width: 300px;
   border-radius: 20px;
 }
-h3 {
-  color: #fff;
+.cocktailsImg:hover {
+  opacity: 70%;
+  transform: scale(1.2);
+}
+figcaption {
+  color: deeppink;
 }
 /* texte middle  */
 .pink {
   text-transform: capitalize;
   margin-top: 100px;
-  color: #96142e;
+  color: deeppink;
 }
 .intro {
   font-size: 1.2rem;
@@ -331,7 +383,12 @@ h3 {
 /* slider */
 h1 {
   margin-top: 100px;
-  color: #96142e;
+  color: deeppink;
+}
+.TitleCocktails {
+  font-size: 1.2rem;
+  font-style: italic;
+  color: deeppink;
 }
 
 .carousel__item {
@@ -343,23 +400,99 @@ h1 {
   justify-content: center;
   align-items: center;
 }
-
+.carousel__track {
+  display: flex;
+  position: relative;
+  align-items: center;
+}
 .carousel__slide {
   padding: 10px;
 }
 .carousel__slide img {
   max-width: 350px;
   height: auto;
+  border-radius: 20px;
+}
+.carousel__slide img:hover {
+  transform: scale(1.2);
 }
 .carousel * {
   box-sizing: border-box;
-  color: white;
+  text-decoration: none;
+  color: deeppink;
 }
 
 .carousel__prev,
 .carousel__next {
   box-sizing: content-box;
-  border: 5px solid #a32308;
+  border: 5px solid deeppink;
   border-radius: 50%;
+}
+
+/* media queries  */
+@media screen and (max-width: 500px) {
+  .carousel__slide img {
+    width: 250px;
+  }
+}
+@media screen and (max-width: 768px) {
+  .nonalcohol {
+    display: none;
+  }
+
+  .drinks {
+    display: none;
+  }
+
+  .color-drinks {
+    width: 80%;
+    margin-bottom: 20px;
+  }
+
+  .search-contain {
+    flex-direction: column;
+  }
+
+  .search-title {
+    font-size: 1.5rem;
+  }
+
+  .citation {
+    font-size: 1.1rem;
+  }
+
+  .search-bar {
+    flex-direction: column;
+  }
+
+  .search-bar input {
+    margin-bottom: 10px;
+  }
+
+  .responseSearch {
+    flex-direction: column;
+  }
+
+  .detailsSearch {
+    flex-direction: column;
+  }
+
+  .searchImg {
+    width: 80%;
+    margin-bottom: 20px;
+  }
+
+  .cocktailsImg {
+    width: 80%;
+    margin-bottom: 20px;
+  }
+
+  .carousel__slide {
+    margin-bottom: 20px;
+  }
+
+  .carousel__slide img {
+    width: 80%;
+  }
 }
 </style>
