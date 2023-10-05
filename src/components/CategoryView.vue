@@ -1,6 +1,6 @@
 <template>
   <HeaderComponent />
-  <div class="categories-page">
+  <div class="categories-page row-limit-size">
     <h1 class="titleCategory">Liste des catégories</h1>
     <ul class="category-list">
       <li
@@ -57,16 +57,16 @@ export default {
 </script>
 
 <style>
-.categories-page {
-  max-width: 600px;
+.row-limit-size {
+  width: 1300px;
   margin: 0 auto;
-  padding: 20px;
 }
 
 .titleCategory {
-  font-size: 2rem;
+  font-size: 2.3rem;
   margin-bottom: 20px;
   color: deeppink;
+  text-align: center;
 }
 
 .category-list {
@@ -76,23 +76,29 @@ export default {
   grid-template-columns: repeat(2, 1fr);
   gap: 16px;
   justify-content: center;
+  align-items: center;
+  align-content: center;
+  justify-items: center;
 }
 
 .listCategory {
+  width: 500px;
   list-style-type: none;
-  font-size: 1.5rem;
+  font-size: 1.8rem;
   color: #f36172;
   padding: 10px;
   border: 1px solid pink;
   border-radius: 20px;
-  text-align: center;
+
   display: flex;
   align-items: center;
   justify-content: center;
 }
+
 .listCategory:hover {
   background-color: fuchsia;
 }
+
 .listCategory a {
   color: #da395b;
   text-decoration: none;
@@ -102,5 +108,21 @@ export default {
 .category-item {
   margin-bottom: 10px;
   font-size: 18px;
+}
+
+/* media queries  */
+@media screen and (max-width: 700px) {
+  .listCategory {
+    width: 250px;
+    font-size: 1.7rem;
+  }
+  .category-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    justify-content: center;
+    align-items: center;
+    justify-items: center;
+  }
 }
 </style>

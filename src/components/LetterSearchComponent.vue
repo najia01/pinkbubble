@@ -65,13 +65,6 @@ export default {
   justify-content: center;
   align-items: center;
 }
-.letter-buttons {
-  display: flex;
-  flex-wrap: wrap;
-  align-content: center;
-  justify-content: center;
-  align-items: center;
-}
 
 .letter-button {
   padding: 10px 20px;
@@ -83,9 +76,12 @@ export default {
   cursor: pointer;
   transition: background-color 0.3s;
   text-decoration: none;
+  font-size: 1.5rem;
 }
 
 .letter-button:hover {
   background-color: #181317;
 }
+
+/* media queries */
 </style>

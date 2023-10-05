@@ -1,5 +1,5 @@
 <template>
-  <div class="ingredientContainer">
+  <div class="ingredientContainer row-limit-size">
     <h1 class="titleIngredients">Liste des Ingrédients</h1>
     <ul class="listIngredients">
       <li
@@ -12,6 +12,7 @@
         </router-link>
       </li>
     </ul>
+    <button @click="goBack">Retour</button>
   </div>
 </template>
 
@@ -29,6 +30,10 @@ export default {
     this.fetchIngredients();
   },
   methods: {
+    goBack() {
+      this.$router.go(-1);
+    },
+
     async fetchIngredients() {
       try {
         const response = await searchByIngredients();
@@ -49,12 +54,13 @@ export default {
 </script>
 
 <style scoped>
-.ingredientContainer {
-  width: 100%;
+.row-limit-size {
+  width: 1300px;
+  margin: 0 auto;
 }
 
 .titleIngredients {
-  font-size: 1.8rem;
+  font-size: 2.3rem;
   font-style: italic;
   text-align: center;
   margin-bottom: 20px;
@@ -80,8 +86,17 @@ export default {
 .ingredient-item {
   font-size: 18px;
   margin-bottom: 10px;
-
   padding: 10px;
   border-radius: 5px;
+}
+
+/* media queries  */
+@media screen and (max-width: 600px) {
+  .ingredientName {
+    font-size: 2rem;
+  }
+  .titleIngredients {
+    font-size: 2.3rem;
+  }
 }
 </style>

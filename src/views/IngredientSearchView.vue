@@ -29,6 +29,7 @@ export default {
 .resultsIngredients {
   width: 100%;
   height: 500px;
+  margin: 0 auto;
 }
 
 .cocktail-list {

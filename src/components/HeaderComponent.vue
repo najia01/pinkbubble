@@ -1,9 +1,49 @@
 <template>
-  <div class="header">
-    <a href="#"
-      ><img class="logo" src="../assets/logo.png" alt="logo pinkbubble"
-    /></a>
-    <img class="hero" src="../assets/hero3.jpeg" alt="image cocktail" />
+  <div class="header row-limit-size">
+    <router-link to="/">
+      <img class="logo" src="../assets/img/logo.png" alt="logo pinkbubble"
+    /></router-link>
+    <div class="search-contain">
+      <div class="search-bar">
+        <input
+          v-model="searchText"
+          type="text"
+          name="search"
+          class="SearchBar-input"
+          placeholder="Votre recherche de cocktail....."
+        />
+        <button @click.prevent="performSearch" class="SearchBar-button">
+          Search
+        </button>
+      </div>
+    </div>
+
+    <div class="responseSearch" v-if="searchResults.length > 0">
+      <ul class="detailsSearch">
+        <li
+          class="cokctailList"
+          v-for="cocktail in searchResults"
+          :key="cocktail.idDrink"
+        >
+          <router-link
+            :to="{
+              name: 'OneCocktailDetail',
+              params: { idDrink: cocktail.idDrink },
+            }"
+          >
+            <figure>
+              <img
+                class="searchImg"
+                :src="cocktail.strDrinkThumb"
+                :alt="cocktail.strDrink"
+              />
+              <figcaption class="titleCock">{{ cocktail.strDrink }}</figcaption>
+            </figure>
+          </router-link>
+        </li>
+      </ul>
+    </div>
+
     <p class="hero-paragraphe">
       Bienvenue dans l'univers pétillant de Pink Bubble, où la créativité
       s'exprime à travers des cocktails avec ou sans alcool aussi délicieux que
@@ -15,7 +55,7 @@
         v-on:click="navOpen = !navOpen"
         v-bind:class="{ active: navOpen }"
       >
-        <img id="menu" src="../assets/hamburger.png" alt="menu burger" />
+        <img id="menu" src="../assets/img/hamburger.png" alt="menu burger" />
       </button>
 
       <nav v-show="navOpen">
@@ -49,7 +89,7 @@
 </template>
 
 <script>
-import { searchByLetter } from "@/services/ApiCocktailDb.js";
+import { searchByLetter, searchByCocktail } from "@/services/ApiCocktailDb.js";
 
 export default {
   name: "HeaderComponent",
@@ -57,8 +97,15 @@ export default {
   data() {
     return {
       searchResults: [],
+      searchText: "",
+      cocktails: [],
       navOpen: false,
     };
+  },
+  watch: {
+    searchText: function (newText) {
+      this.performSearch();
+    },
   },
   methods: {
     async LetterSearch() {
@@ -72,42 +119,112 @@ export default {
         console.error("Erreur lors de la recherche par lettre", error);
       }
     },
+    async performSearch() {
+      this.searchResults = [];
+      try {
+        const response = await searchByCocktail(this.searchText);
+        if (!response.ok) {
+          throw new Error("Erreur de recherche");
+        }
+        const data = await response.json();
+        this.searchResults = data.drinks || [];
+      } catch (error) {
+        console.error("Erreur lors de la recherche de cocktails:", error);
+      }
+    },
   },
 };
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style>
-.hero {
-  width: 100%;
-  height: auto;
-  background-color: deeppink;
-}
-.hero-paragraphe {
-  font-size: 2rem;
-  text-align: center;
-  padding: 20px;
-  color: deeppink;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-  /* -webkit-text-stroke: 1px black; */
+.row-limit-size {
+  width: 1300px;
+  margin: 0 auto;
 }
 
 .header a {
   position: relative;
-  background-color: #181317;
-  color: white;
   padding: 10px 20px;
   display: flex;
   justify-content: flex-end;
   align-items: center;
+  background-color: black;
 }
 .logo {
-  width: 220px;
+  width: 180px;
   margin: 0 auto;
 }
+
+.search-contain {
+  text-align: center;
+  padding: 20px;
+}
+/* Style de la barre de recherche */
+.search-bar {
+  margin-top: 20px;
+}
+
+.SearchBar-input {
+  width: 500px;
+  padding: 10px;
+  font-size: 1.5rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.SearchBar-button {
+  padding: 10px 20px;
+  font-size: 1.5rem;
+  background-color: deeppink;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.SearchBar-button:hover {
+  background-color: #f77fbe;
+}
+
+.hero-paragraphe {
+  font-size: 2rem;
+  text-align: center;
+  padding: 80px;
+  background-image: linear-gradient(
+    -225deg,
+    #fd1d1d 0%,
+    #833ab4 29%,
+    #fd1d1d 67%,
+    #fcb045 100%
+  );
+  background-size: auto auto;
+  background-clip: border-box;
+  background-size: 200% auto;
+  color: #fff;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: textclip 5s linear infinite;
+}
+
+@keyframes textclip {
+  to {
+    background-position: 100% center;
+  }
+}
+
 nav a.router-link-exact-active {
   color: deeppink;
 }
+nav {
+  padding: 0;
+}
+
+.sidemenu-wrapper {
+  width: 280px;
+}
+
 #sidemenu {
   position: absolute;
   top: 30px;
@@ -129,10 +246,6 @@ nav a.router-link-exact-active {
   transition: all 0.4s ease;
 }
 
-.sidemenu-wrapper {
-  padding-top: 50px;
-}
-
 .sidemenu-list {
   list-style: none;
   padding: 0;
@@ -142,7 +255,7 @@ nav a.router-link-exact-active {
 .sidemenu-item a {
   text-decoration: none;
   line-height: 1.6em;
-  font-size: 1.6em;
+  font-size: 1 rem;
   padding: 0.5em;
   display: block;
   color: deeppink;
@@ -154,38 +267,22 @@ nav a.router-link-exact-active {
   color: #dd3f5b;
   opacity: 90%;
 }
-p {
-  font-family: Georgia, "Times New Roman", Times, serif;
-  font-size: 1.2rem;
-  color: white;
-}
 
 /* *-*-*-*-MEDIAQUERIES*-*-*-*-*- */
-@media screen and (max-width: 760px) {
-  .header {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .hero {
-    width: 100%;
-    height: auto;
-  }
-
+@media screen and (max-width: 500px) {
   .hero-paragraphe {
-    text-align: center;
-    font-size: 1rem;
+    font-size: 2.5rem;
   }
 
   .logo {
-    width: 70%;
+    width: 30%;
     margin: 0 auto;
   }
   #sidemenu {
     top: 0;
   }
   .sidemenu-item {
-    font-size: 0.8rem;
+    font-size: 2.5rem;
   }
   .sidemenu-btn {
     display: block;
@@ -197,6 +294,7 @@ p {
 
   .sidemenu-wrapper {
     padding: 0;
+    width: 300px;
   }
 
   .sidemenu-list {
@@ -204,31 +302,36 @@ p {
   }
 }
 
-@media screen and (min-width: 761px) and (max-width: 1024px) {
-  .header {
-    display: flex;
-    justify-content: space-between;
-  }
-
-  .hero {
-    width: 100%;
-    height: auto;
-  }
-
+@media screen and (min-width: 500px) and (max-width: 760px) {
   .hero-paragraphe {
-    width: 70%;
+    margin: 0 auto;
+    font-size: 1.5rem;
   }
-
-  .logo {
-    width: 30%;
+  .drinks {
+    display: none;
+  }
+  .cocktailsImg {
+    width: 180px !important;
+    border-radius: 20px;
   }
 
   nav {
     flex-direction: row;
   }
+  .sidemenu-item {
+    font-size: 1.8rem;
+  }
 
   .sidemenu-list {
     flex-direction: row;
+  }
+  .SearchBar-button {
+    font-size: 1.5rem;
+  }
+  .hero-paragraphe {
+    width: 80%;
+    margin: 0 auto;
+    font-size: 1.8rem;
   }
 }
 </style>

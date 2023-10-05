@@ -1,6 +1,6 @@
 <template>
   <HeaderComponent />
-  <div class="category-results">
+  <div class="category-results row-limit-size">
     <h1 class="titleResults">Résultats pour la catégorie : {{ category }}</h1>
     <ul class="CategoryResults">
       <li
@@ -53,14 +53,13 @@ export default {
 };
 </script>
 <style>
-.category-results {
-  max-width: 600px;
+.row-limit-size {
+  width: 1300px;
   margin: 0 auto;
-  padding: 20px;
 }
 
 .titleResults {
-  font-size: 1.8rem;
+  font-size: 2.3rem;
   font-style: italic;
   text-align: center;
   color: deeppink;
@@ -71,6 +70,7 @@ export default {
   grid-template-columns: repeat(4, 1fr);
   gap: 16px;
   justify-content: center;
+  padding-left: 0px;
 }
 
 .ResultsCategory {
@@ -78,25 +78,26 @@ export default {
   margin-top: 70px;
   border: 1px solid pink;
   border-radius: 20px;
-  text-align: center;
+
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .ResultsCategory:hover {
-  background-color: fuchsia;
+  background-color: #f77fbe;
 }
 
 .ResultsCategory a {
   color: #da395b;
   text-decoration: none;
+  font-size: 2rem;
 }
 
 button {
   display: inline-block;
   padding: 10px 20px;
-  margin-top: 40px;
+  margin-top: 100px;
   background-color: #96142e;
   color: #fff;
   text-decoration: none;
@@ -104,10 +105,34 @@ button {
   border-radius: 5px;
   transition: background-color 0.3s, color 0.3s;
   margin-bottom: 20px;
+  font-size: 1.8rem;
 }
 
 button:hover {
   background-color: transparent;
   color: #96142e;
+}
+
+/* media queries  */
+@media screen and (max-width: 700px) {
+  .titleResults {
+    font-size: 2.5rem;
+  }
+  .ResultsCategory {
+    font-size: 2rem;
+  }
+  .category-results {
+    display: grid;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    justify-items: center;
+  }
+
+  .CategoryResults {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    padding-left: 0px;
+  }
 }
 </style>

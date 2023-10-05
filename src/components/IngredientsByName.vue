@@ -1,5 +1,6 @@
 <template>
-  <div>
+  <HeaderComponent />
+  <div class="row-limit-size">
     <h1 class="titleCocktail">Cocktails à base de {{ ingredientName }}</h1>
     <ul class="cocktail-list">
       <li
@@ -14,12 +15,16 @@
     </ul>
     <button @click="goBack">Retour</button>
   </div>
+  <FooterComponent />
 </template>
 
 <script>
+import HeaderComponent from "@/components/HeaderComponent.vue";
+import FooterComponent from "@/components/FooterComponent.vue";
 import { getIngredientByName } from "@/services/ApiCocktailDb.js";
 
 export default {
+  components: { HeaderComponent, FooterComponent },
   data() {
     return {
       ingredientName: "",
@@ -66,6 +71,10 @@ export default {
 </script>
 
 <style scoped>
+.row-limit-size {
+  width: 1300px;
+  margin: 0 auto;
+}
 .titleCocktail {
   font-size: 1.8rem;
   font-style: italic;
@@ -96,7 +105,7 @@ export default {
 button {
   display: inline-block;
   padding: 10px 20px;
-  margin-top: 40px;
+  margin-top: 100px;
   background-color: #96142e;
   color: #fff;
   text-decoration: none;
@@ -104,6 +113,7 @@ button {
   border-radius: 5px;
   transition: background-color 0.3s, color 0.3s;
   margin-bottom: 20px;
+  font-size: 1.8rem;
 }
 
 button:hover {

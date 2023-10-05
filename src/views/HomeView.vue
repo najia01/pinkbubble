@@ -1,126 +1,98 @@
 <template>
   <HeaderComponent />
+  <div class="row-limit-size">
+    <div class="home">
+      <div class="drinks">
+        <img
+          class="color-drinks"
+          src="../assets/img/blue-lagoon.jpg "
+          alt="blue-lagoon"
+        />
+        <img
+          class="color-drinks"
+          src="../assets/img/cocktail-fraises.jpg "
+          alt="cocktail-fraises"
+        />
+        <img
+          class="color-drinks"
+          src="../assets/img/limonade-fraiche-bleue.jpg "
+          alt="limonade-fraiche-bleue"
+        />
+      </div>
 
-  <div class="home">
-    <div class="drinks">
-      <img
-        class="color-drinks"
-        src="../assets/blue-lagoon.jpg "
-        alt="blue-lagoon"
-      />
-      <img
-        class="color-drinks"
-        src="../assets/cocktail-fraises.jpg "
-        alt="cocktail-fraises"
-      />
-      <img
-        class="color-drinks"
-        src="../assets/limonade-fraiche-bleue.jpg "
-        alt="limonade-fraiche-bleue"
-      />
-    </div>
-
-    <!-- BARRE DE RECHERCHE -->
-    <div class="search-contain">
       <h1 class="search-title">Citation</h1>
       <p class="citation">
         "Les cocktails sans alcool sont comme des poèmes sans rimes. Ils ont la
         magie, la créativité et le goût, mais ils préservent la clarté de
         l'esprit."<br />
-        <span class="name">Richard Branson</span>
+      </p>
+      <span class="name">Richard Branson</span>
+
+      <!-- Pictures  -->
+      <h1 class="tendances">Les tendances du moment</h1>
+      <div class="nonalcohol">
+        <img
+          class="cocktailsImg"
+          src="../assets/img/anil.png"
+          alt="cocktail anil"
+        />
+        <img
+          class="cocktailsImg"
+          src="../assets/img/blu.png"
+          alt="cocktail anil"
+        />
+        <img
+          class="cocktailsImg"
+          src="../assets/img/bleu.png"
+          alt="cocktail anil"
+        />
+
+        <img
+          class="cocktailsImg"
+          src="../assets/img/charlotte.png"
+          alt="cocktail anil"
+        />
+      </div>
+      <!-- texte  -->
+
+      <h1 class="pink">PINK BUBBLE C'EST</h1>
+      <p class="intro">
+        Une collection diversifiée de recettes de cocktails, des classiques
+        revisités aux créations originales, le tout présenté avec des
+        instructions claires et faciles à suivre. Que vous prépariez un cocktail
+        pour une soirée entre amis, une fête spéciale ou tout simplement pour
+        vous détendre après une longue journée, nos recettes vous guideront vers
+        l'excellence de la mixologie.
       </p>
 
-      <div class="search-bar">
-        <input
-          v-model="searchText"
-          type="text"
-          name="search"
-          class="SearchBar-input"
-          placeholder="Votre recherche ici....."
-        />
-        <button @click.prevent="performSearch" class="SearchBar-button">
-          Search
-        </button>
-      </div>
-    </div>
+      <h1 class="randPict">Vous aimerez aussi...</h1>
 
-    <div class="responseSearch" v-if="searchResults.length > 0">
-      <ul class="detailsSearch">
-        <li
-          class="cokctailList"
-          v-for="cocktail in searchResults"
-          :key="cocktail.idDrink"
-        >
+      <Carousel
+        autoplay="2000"
+        wrapAround="true"
+        v-bind="settings"
+        :breakpoints="breakpoints"
+      >
+        <slide v-for="cocktail in cocktails" :key="cocktail.idDrink">
           <router-link
             :to="{
               name: 'OneCocktailDetail',
               params: { idDrink: cocktail.idDrink },
             }"
           >
-            <figure>
-              <img
-                class="searchImg"
-                :src="cocktail.strDrinkThumb"
-                :alt="cocktail.strDrink"
-              />
-              <figcaption class="titleCock">{{ cocktail.strDrink }}</figcaption>
-            </figure>
+            <div class="cocktail-card">
+              <h3 class="TitleCocktails">{{ cocktail.strDrink }}</h3>
+              <figure>
+                <img :src="cocktail.strDrinkThumb" :alt="cocktail.strDrink" />
+              </figure>
+            </div>
           </router-link>
-        </li>
-      </ul>
+        </slide>
+        <template #addons>
+          <Navigation />
+        </template>
+      </Carousel>
     </div>
-
-    <!-- Pictures  -->
-    <h1>Les tendances du moment</h1>
-    <div class="nonalcohol">
-      <img class="cocktailsImg" src="../assets/anil.png" alt="cocktail anil" />
-      <img class="cocktailsImg" src="../assets/blu.png" alt="cocktail anil" />
-      <img class="cocktailsImg" src="../assets/bleu.png" alt="cocktail anil" />
-      <!-- <img
-        class="cocktailsImg"
-        src="../assets/citron.png"
-        alt="cocktail anil"
-      /> -->
-      <img
-        class="cocktailsImg"
-        src="../assets/charlotte.png"
-        alt="cocktail anil"
-      />
-    </div>
-    <!-- texte  -->
-
-    <h1 class="pink">PINK BUBBLE C'EST</h1>
-    <p class="intro">
-      Une collection diversifiée de recettes de cocktails, des classiques
-      revisités aux créations originales, le tout présenté avec des instructions
-      claires et faciles à suivre. Que vous prépariez un cocktail pour une
-      soirée entre amis, une fête spéciale ou tout simplement pour vous détendre
-      après une longue journée, nos recettes vous guideront vers l'excellence de
-      la mixologie.
-    </p>
-
-    <h1 class="randPict">Vous aimerez aussi...</h1>
-
-    <Carousel :items-to-show="3">
-      <slide v-for="cocktail in cocktails" :key="cocktail.idDrink">
-        <router-link
-          :to="{
-            name: 'OneCocktailDetail',
-            params: { idDrink: cocktail.idDrink },
-          }"
-        >
-          <div class="cocktail-card">
-            <h3 class="TitleCocktails">{{ cocktail.strDrink }}</h3>
-            <figure>
-              <img :src="cocktail.strDrinkThumb" :alt="cocktail.strDrink" />
-            </figure>
-          </div>
-        </router-link>
-      </slide>
-      <template #addons>
-        <Navigation />
-      </template>
-    </Carousel>
   </div>
   <FooterComponent />
 </template>
@@ -133,14 +105,12 @@ import { defineComponent } from "vue";
 import { Carousel, Navigation, Slide } from "vue3-carousel";
 import "vue3-carousel/dist/carousel.css";
 import { getRandomCocktails } from "@/services/ApiCocktailDb.js";
-import { searchByCocktail } from "@/services/ApiCocktailDb.js";
 
 export default defineComponent({
   name: "HomeView",
   components: {
     HeaderComponent,
     FooterComponent,
-
     Carousel,
     Slide,
     Navigation,
@@ -164,28 +134,10 @@ export default defineComponent({
           itemsToShow: 3,
           snapAlign: "center",
         },
-        1200: {
-          itemsToShow: 4,
-          snapAlign: "start",
-        },
       },
     };
   },
-
   methods: {
-    async performSearch() {
-      this.searchResults = [];
-      try {
-        const response = await searchByCocktail(this.searchText);
-        if (!response.ok) {
-          throw new Error("Erreur de recherche");
-        }
-        const data = await response.json();
-        this.searchResults = data.drinks || [];
-      } catch (error) {
-        console.error("Erreur lors de la recherche de cocktails:", error);
-      }
-    },
     async fetchCocktails() {
       try {
         const response = await getRandomCocktails();
@@ -208,6 +160,56 @@ export default defineComponent({
 <style>
 body {
   background-color: black;
+  box-sizing: border-box;
+}
+.row-limit-size {
+  width: 1300px;
+  margin: 0 auto;
+}
+
+.search-title {
+  font-size: 1.8rem;
+  color: deeppink;
+  margin-top: inherit;
+}
+
+.citation {
+  width: 800px;
+  margin: 0 auto;
+  line-height: 2;
+  font-size: 1.8rem;
+  color: deeppink;
+  font-style: italic;
+}
+
+.name {
+  font-style: italic;
+  color: #da395b;
+  font-size: 1.3rem;
+}
+.tendances {
+  font-size: 2rem;
+  background-image: linear-gradient(
+    -225deg,
+    #fd1d1d 0%,
+    #833ab4 29%,
+    #fd1d1d 67%,
+    #fcb045 100%
+  );
+  background-size: auto auto;
+  background-clip: border-box;
+  background-size: 200% auto;
+  color: #fff;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: textclip 5s linear infinite;
+}
+
+@keyframes textclip {
+  to {
+    background-position: 100% center;
+  }
 }
 
 .drinks {
@@ -226,89 +228,6 @@ body {
   opacity: 70%;
 }
 
-/* Search bar */
-.search-contain {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.search-title {
-  font-size: 1.8rem;
-  font-family: "OpenSans-Bold", sans-serif;
-  text-align: center;
-  font-style: italic;
-  color: deeppink;
-}
-
-.citation {
-  font-size: 1.3rem;
-  font-family: "OpenSans-Bold", sans-serif;
-  font-style: italic;
-  text-align: center;
-  color: deeppink;
-  padding: 30px;
-  line-height: 2;
-}
-
-.citation .name {
-  font-size: 1.5rem;
-  font-family: "OpenSans-Bold", sans-serif;
-  text-transform: capitalize;
-  color: deeppink;
-}
-
-input,
-button {
-  border: none;
-  background: none;
-  outline: 0;
-}
-
-button {
-  cursor: pointer;
-}
-
-.SearchBar-input::placeholder {
-  color: deeppink;
-  font-style: italic;
-  opacity: 0.6;
-}
-
-.search-bar {
-  height: 3em;
-  display: flex;
-  border-radius: 4em;
-}
-.search-bar:hover .SearchBar-input {
-  padding-left: 2em;
-  padding-right: 1em;
-  width: 400px;
-}
-.search-bar .SearchBar-input {
-  width: 0;
-  font-size: 1.2em;
-  color: deeppink;
-  transition: 0.45s;
-}
-
-.search-bar .SearchBar-button {
-  border-radius: 50%;
-  height: 3.5em;
-  transition: 0.3s;
-  color: pink;
-  padding: inherit;
-  margin-top: inherit;
-}
-.search-bar .SearchBar-button:active {
-  transform: scale(0.85);
-}
-.search-bar .SearchBar-icon {
-  margin: auto;
-  color: #fff;
-}
-
 /* resultats recherche */
 .responseSearch {
   width: 100%;
@@ -322,9 +241,7 @@ button {
 .detailsSearch {
   display: contents;
 }
-.titleCock {
-  text-decoration: none;
-}
+
 .cokctailList a {
   text-decoration: none;
 }
@@ -337,7 +254,29 @@ button {
 }
 .randPict {
   color: deeppink;
+  background-image: linear-gradient(
+    -225deg,
+    #fd1d1d 0%,
+    #833ab4 29%,
+    #fd1d1d 67%,
+    #fcb045 100%
+  );
+  background-size: auto auto;
+  background-clip: border-box;
+  background-size: 200% auto;
+  color: #fff;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: textclip 5s linear infinite;
 }
+
+@keyframes textclip {
+  to {
+    background-position: 100% center;
+  }
+}
+
 .nonalcohol {
   width: 100%;
   height: 500px;
@@ -363,7 +302,7 @@ button {
 }
 .cocktailsImg:hover {
   opacity: 70%;
-  transform: scale(1.2);
+  transform: scale(1.1);
 }
 figcaption {
   color: deeppink;
@@ -373,12 +312,33 @@ figcaption {
   text-transform: capitalize;
   margin-top: 100px;
   color: deeppink;
+  text-align: center;
+  font-size: 2.5em;
+  letter-spacing: 2px;
+  font-weight: 600;
+  animation: blur 0.75s ease-out infinite;
+  /* text-shadow: 0px 0px 5px #fff, 0px 0px 7px deeppink; */
 }
+
+@keyframes blur {
+  from {
+    text-shadow: 0px 0px 10px #da395b, 0px 0px 10px #fff, 0px 0px 25px #fff,
+      0px 0px 25px #fff, 0px 0px 25px #fff, 0px 0px 25px #fff, 0px 0px 25px #fff,
+      0px 0px 25px #fff, 0px 0px 50px #fff, 0px 0px 50px #fff,
+      0px 0px 50px #7b96b8, 0px 0px 150px #7b96b8, 0px 10px 100px #7b96b8,
+      0px 10px 100px #7b96b8, 0px 10px 100px #7b96b8, 0px 10px 100px #7b96b8,
+      0px -10px 100px #7b96b8, 0px -10px 100px #7b96b8;
+  }
+}
+
 .intro {
-  font-size: 1.2rem;
+  font-size: 1.5rem;
   font-style: italic;
-  text-align: justify;
+  width: 800px;
+  margin: 0 auto;
   padding: 20px;
+  line-height: 1.5;
+  color: #da395b;
 }
 /* slider */
 h1 {
@@ -386,9 +346,13 @@ h1 {
   color: deeppink;
 }
 .TitleCocktails {
-  font-size: 1.2rem;
+  font-size: 1.8rem;
   font-style: italic;
   color: deeppink;
+}
+.carousel__viewport {
+  overflow: hidden;
+  margin-top: 80px;
 }
 
 .carousel__item {
@@ -434,6 +398,15 @@ h1 {
   .carousel__slide img {
     width: 250px;
   }
+  .tendances {
+    display: none;
+  }
+  .intro {
+    font-size: 2rem;
+  }
+  figcaption.titleCock {
+    font-size: 2rem;
+  }
 }
 @media screen and (max-width: 768px) {
   .nonalcohol {
@@ -452,15 +425,19 @@ h1 {
   .search-contain {
     flex-direction: column;
   }
-
+  .tendances {
+    display: none;
+  }
   .search-title {
-    font-size: 1.5rem;
+    font-size: 2rem;
   }
 
   .citation {
-    font-size: 1.1rem;
+    font-size: 2.1rem;
   }
-
+  .name {
+    font-size: 1.6rem;
+  }
   .search-bar {
     flex-direction: column;
   }

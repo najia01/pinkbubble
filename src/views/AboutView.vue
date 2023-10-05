@@ -1,7 +1,7 @@
 <template>
   <HeaderComponent />
-  <div class="about">
-    <h1 class="titleIntro">Bienvenue chez Pink Bubble</h1>
+  <div class="about row-limit-size">
+    <h1 class="titleIntro">Pink Bubble</h1>
     <span class="spIntro"
       >Votre destination gourmande pour des moments rafraîchissants et festifs
       sans alcool !</span
@@ -25,12 +25,25 @@
       mixologie avec ou sans alcool avec Pink Bubble.<br />
       Santé et à votre santé !
     </p>
-  </div>
-  <div class="pictureAbout">
-    <img src="../assets/fraises.png" alt="cocktail a la fraise " />
-    <img src="../assets/gonzalo.png" alt="cocktail aux fruits " />
-    <img src="../assets/isabella.png" alt="cocktail aux agrumes " />
-    <img src="../assets/orangee.png" alt="cocktail citron " />
+
+    <div class="pictureAbout">
+      <img
+        class="imgAbout"
+        src="../assets/img/mousse.png"
+        alt="cocktail a la fraise "
+      />
+      <img
+        class="imgAbout"
+        src="../assets/img/gonzalo.png"
+        alt="cocktail aux fruits "
+      />
+
+      <img
+        class="imgAbout"
+        src="../assets/img/orangee.png"
+        alt="cocktail citron "
+      />
+    </div>
   </div>
   <FooterComponent />
 </template>
@@ -45,6 +58,11 @@ export default {
 </script>
 
 <style>
+.row-limit-size {
+  width: 1300px;
+  margin: 0 auto;
+}
+
 .titleIntro {
   font-size: 2rem;
   font-weight: 600;
@@ -52,7 +70,6 @@ export default {
   color: deeppink;
 }
 .presentation {
-  text-align: justify;
   font-size: 1.2rem;
   font-style: italic;
   font-weight: 500;
@@ -64,5 +81,22 @@ export default {
   font-size: 1.5rem;
   font-style: italic;
   color: pink;
+}
+
+/* media queries  */
+@media screen and (max-width: 1400px) {
+  .titleIntro {
+    font-size: 2.5rem;
+  }
+  .presentation {
+    font-size: 1.6rem;
+  }
+  .spIntro {
+    font-size: 1.8rem;
+  }
+
+  .pictureAbout {
+    display: none;
+  }
 }
 </style>

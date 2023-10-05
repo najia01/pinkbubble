@@ -1,6 +1,6 @@
 <template>
   <HeaderComponent />
-  <div class="letter-search">
+  <div class="letter-search row-limit-size">
     <h1 class="letter">Recherche par lettre</h1>
     <!-- Barre de recherche par lettre -->
     <LetterSearchComponent :setsearchletter="performLetterSearch" />
@@ -17,6 +17,7 @@
         </button>
       </div>
     </div>
+    <button @click="goBack">Retour</button>
   </div>
 
   <div class="search-results" v-if="searchResults.length > 0">
@@ -47,7 +48,7 @@
       </div>
     </div>
   </div>
-  <button @click="goBack">Retour</button>
+
   <FooterComponent />
 </template>
 
@@ -110,11 +111,15 @@ export default {
 
 <style scoped>
 .letter {
-  margin-top: 80px;
-  font-size: 1.8rem;
+  margin-bottom: 80px;
+  font-size: 2.3rem;
   font-style: italic;
   text-align: center;
   color: deeppink;
+}
+.row-limit-size {
+  width: 1300px;
+  margin: 0 auto;
 }
 .letter-search-bar {
   display: flex;
@@ -123,13 +128,6 @@ export default {
   justify-content: center;
   align-items: center;
   margin-top: 50px;
-}
-.letter-buttons {
-  display: flex;
-  flex-wrap: wrap;
-  align-content: center;
-  justify-content: center;
-  align-items: center;
 }
 
 .letter-button {
@@ -142,6 +140,7 @@ export default {
   cursor: pointer;
   transition: background-color 0.3s;
   text-decoration: none;
+  font-size: 1.5rem;
 }
 
 .letter-button:hover {
@@ -149,7 +148,8 @@ export default {
 }
 
 .search-results {
-  margin-top: 100px;
+  width: 1300px;
+  margin: 0 auto;
 }
 
 .cocktail-cards {
@@ -174,23 +174,24 @@ export default {
   border-radius: 20px;
 }
 .cocktail-title {
-  font-size: 1.5rem;
+  font-size: 1.9rem;
   margin-top: 10px;
   color: crimson;
 }
 
 .cocktail-instructions h4 {
-  font-size: 1.2rem;
+  font-size: 1.8rem;
   color: deeppink;
+  font-style: italic;
 }
 .cocktail-instructions p {
-  font-size: 1rem;
+  font-size: 1.3rem;
   font-style: italic;
   color: #da395b;
 }
 
 .cocktail-ingredients h4 {
-  font-size: 1rem;
+  font-size: 1.8rem;
   margin-bottom: 5px;
   color: deeppink;
 }
@@ -204,7 +205,7 @@ export default {
 .cocktail-ingredients li {
   margin-bottom: 5px;
   list-style-type: none;
-  font-size: 0.8rem;
+  font-size: 1.3rem;
   color: #da395b;
 }
 
@@ -215,7 +216,7 @@ export default {
 button {
   display: inline-block;
   padding: 10px 20px;
-  margin-top: 40px;
+  margin-top: 100px;
   background-color: #96142e;
   color: #fff;
   text-decoration: none;
@@ -223,10 +224,42 @@ button {
   border-radius: 5px;
   transition: background-color 0.3s, color 0.3s;
   margin-bottom: 20px;
+  font-size: 1.8rem;
 }
 
 button:hover {
   background-color: transparent;
   color: #96142e;
+}
+
+/* media queries  */
+@media screen and (max-width: 600px) {
+  .cocktail-cards {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 20px;
+  }
+  .cocktail-title {
+    font-size: 2rem;
+  }
+  .cocktail-instructions h4 {
+    font-size: 1.8rem;
+  }
+
+  .cocktail-instructions p {
+    font-size: 1.7rem;
+  }
+  .cocktail-ingredients h4 {
+    font-size: 1.8rem;
+  }
+  .cocktail-ingredients ul {
+    font-size: 1.7rem;
+  }
+  .cocktail-ingredients li {
+    font-size: 1.8rem;
+  }
+  .letter-button {
+    font-size: 2rem;
+  }
 }
 </style>
