@@ -82,6 +82,4 @@ export default {
 .letter-button:hover {
   background-color: #181317;
 }
-
-/* media queries */
 </style>

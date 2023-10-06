@@ -65,8 +65,28 @@ export default {
 .titleCategory {
   font-size: 2.3rem;
   margin-bottom: 20px;
-  color: deeppink;
   text-align: center;
+  background-image: linear-gradient(
+    -225deg,
+    #fd1d1d 0%,
+    #833ab4 29%,
+    #fd1d1d 67%,
+    #fcb045 100%
+  );
+  background-size: auto auto;
+  background-clip: border-box;
+  background-size: 200% auto;
+  color: #fff;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: textclip 5s linear infinite;
+}
+
+@keyframes textclip {
+  to {
+    background-position: 100% center;
+  }
 }
 
 .category-list {
@@ -82,6 +102,7 @@ export default {
 }
 
 .listCategory {
+  height: 100px;
   width: 500px;
   list-style-type: none;
   font-size: 1.8rem;
@@ -96,7 +117,7 @@ export default {
 }
 
 .listCategory:hover {
-  background-color: fuchsia;
+  background-color: #f77fbe;
 }
 
 .listCategory a {

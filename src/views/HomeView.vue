@@ -311,26 +311,15 @@ figcaption {
 .pink {
   text-transform: capitalize;
   margin-top: 100px;
-  color: deeppink;
+  /* color: deeppink; */
   text-align: center;
   font-size: 2.5em;
   letter-spacing: 2px;
   font-weight: 600;
-  animation: blur 0.75s ease-out infinite;
-  /* text-shadow: 0px 0px 5px #fff, 0px 0px 7px deeppink; */
+  text-shadow: 0 0 2px deeppink, 0 0 30px deeppink, 0px 0px 5px deeppink,
+    0 0 150px deeppink;
+  color: deeppink;
 }
-
-@keyframes blur {
-  from {
-    text-shadow: 0px 0px 10px #da395b, 0px 0px 10px #fff, 0px 0px 25px #fff,
-      0px 0px 25px #fff, 0px 0px 25px #fff, 0px 0px 25px #fff, 0px 0px 25px #fff,
-      0px 0px 25px #fff, 0px 0px 50px #fff, 0px 0px 50px #fff,
-      0px 0px 50px #7b96b8, 0px 0px 150px #7b96b8, 0px 10px 100px #7b96b8,
-      0px 10px 100px #7b96b8, 0px 10px 100px #7b96b8, 0px 10px 100px #7b96b8,
-      0px -10px 100px #7b96b8, 0px -10px 100px #7b96b8;
-  }
-}
-
 .intro {
   font-size: 1.5rem;
   font-style: italic;
@@ -437,13 +426,6 @@ h1 {
   }
   .name {
     font-size: 1.6rem;
-  }
-  .search-bar {
-    flex-direction: column;
-  }
-
-  .search-bar input {
-    margin-bottom: 10px;
   }
 
   .responseSearch {

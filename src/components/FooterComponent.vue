@@ -1,6 +1,11 @@
 <template>
+  <img
+    class="hero"
+    src="../assets/img/hero6.png
+  "
+    alt="image cocktail"
+  />
   <footer class="footer row-limit-size">
-    <img class="hero" src="../assets/img/hero.jpg" alt="image cocktail" />
     <div class="footer-left">
       <img src="../assets/img/logo.png" alt="Logo" class="footer-logo" />
     </div>
@@ -40,8 +45,7 @@ export default {
   width: 1300px;
 }
 .hero {
-  margin-top: 80px;
-  width: 100%;
+  height: 400px;
 }
 .footer {
   width: 100%;
@@ -151,10 +155,11 @@ export default {
   transform: rotateY(360deg);
 }
 
-/* ... Vos autres styles ... */
-
 /* *-*-*-*--*--*-MEDIA QUERIES *-*-*-*-*-*-*-**- */
 @media screen and (max-width: 768px) {
+  .hero {
+    display: none;
+  }
   .footer {
     margin-top: 100px;
   }

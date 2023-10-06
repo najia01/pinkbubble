@@ -62,7 +62,27 @@ export default {
   font-size: 2.3rem;
   font-style: italic;
   text-align: center;
-  color: deeppink;
+  background-image: linear-gradient(
+    -225deg,
+    #fd1d1d 0%,
+    #833ab4 29%,
+    #fd1d1d 67%,
+    #fcb045 100%
+  );
+  background-size: auto auto;
+  background-clip: border-box;
+  background-size: 200% auto;
+  color: #fff;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: textclip 5s linear infinite;
+}
+
+@keyframes textclip {
+  to {
+    background-position: 100% center;
+  }
 }
 
 .CategoryResults {
@@ -78,7 +98,7 @@ export default {
   margin-top: 70px;
   border: 1px solid pink;
   border-radius: 20px;
-
+  height: 100px;
   display: flex;
   align-items: center;
   justify-content: center;

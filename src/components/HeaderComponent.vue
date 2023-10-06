@@ -3,19 +3,21 @@
     <router-link to="/">
       <img class="logo" src="../assets/img/logo.png" alt="logo pinkbubble"
     /></router-link>
-    <div class="search-contain">
-      <div class="search-bar">
-        <input
-          v-model="searchText"
-          type="text"
-          name="search"
-          class="SearchBar-input"
-          placeholder="Votre recherche de cocktail....."
-        />
-        <button @click.prevent="performSearch" class="SearchBar-button">
-          Search
-        </button>
-      </div>
+
+    <div class="search-bar">
+      <input
+        v-model="searchText"
+        type="text"
+        name="search"
+        class="SearchBar-input"
+        placeholder="Votre recherche de cocktail....."
+        autocomplete="off"
+      />
+      <input
+        @click.prevent="performSearch"
+        value="Search"
+        class="SearchBar-button"
+      />
     </div>
 
     <div class="responseSearch" v-if="searchResults.length > 0">
@@ -103,7 +105,7 @@ export default {
     };
   },
   watch: {
-    searchText: function (newText) {
+    searchText: function () {
       this.performSearch();
     },
   },
@@ -149,42 +151,42 @@ export default {
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  background-color: black;
 }
 .logo {
   width: 180px;
   margin: 0 auto;
 }
 
-.search-contain {
-  text-align: center;
-  padding: 20px;
-}
 /* Style de la barre de recherche */
 .search-bar {
-  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-
 .SearchBar-input {
-  width: 500px;
-  padding: 10px;
-  font-size: 1.5rem;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+  min-height: 50px;
+  width: 300px;
+  color: #fff;
+  font-size: 1.3rem;
+  border: 1px solid deeppink;
+  border-radius: 6px 0 0 6px;
+  background-color: transparent;
 }
 
 .SearchBar-button {
-  padding: 10px 20px;
-  font-size: 1.5rem;
+  min-height: 50px;
+  width: 60px;
+  border: none;
+  border-radius: 0 6px 6px 0;
   background-color: deeppink;
   color: #fff;
-  border: none;
-  border-radius: 5px;
+  font-size: 1rem;
   cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+  text-align: center;
 }
-
 .SearchBar-button:hover {
-  background-color: #f77fbe;
+  background-color: #96142e;
 }
 
 .hero-paragraphe {
@@ -227,7 +229,7 @@ nav {
 
 #sidemenu {
   position: absolute;
-  top: 30px;
+  top: -50px;
 }
 
 .sidemenu-btn {
@@ -300,8 +302,10 @@ nav {
   .sidemenu-list {
     flex-direction: column;
   }
+  .SearchBar-input {
+    font-size: 2rem;
+  }
 }
-
 @media screen and (min-width: 500px) and (max-width: 760px) {
   .hero-paragraphe {
     margin: 0 auto;

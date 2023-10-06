@@ -93,8 +93,18 @@ export default {
 }
 
 .imgCocktail {
-  width: 400px;
+  width: 350px;
   border-radius: 20px;
+}
+.imgCocktail {
+  -webkit-transform: scale(1.1);
+  transform: scale(1.1);
+  -webkit-transition: 0.3s ease-in-out;
+  transition: 0.3s ease-in-out;
+}
+.imgCocktail:hover {
+  -webkit-transform: scale(1);
+  transform: scale(1);
 }
 
 figcaption {
@@ -132,7 +142,6 @@ figcaption {
 }
 .thumbnailCocktail {
   width: 150px;
-
   height: 150px;
   box-sizing: border-box;
   border: 5px deeppink solid;

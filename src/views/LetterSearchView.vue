@@ -115,7 +115,27 @@ export default {
   font-size: 2.3rem;
   font-style: italic;
   text-align: center;
-  color: deeppink;
+  background-image: linear-gradient(
+    -225deg,
+    #fd1d1d 0%,
+    #833ab4 29%,
+    #fd1d1d 67%,
+    #fcb045 100%
+  );
+  background-size: auto auto;
+  background-clip: border-box;
+  background-size: 200% auto;
+  color: #fff;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: textclip 5s linear infinite;
+}
+
+@keyframes textclip {
+  to {
+    background-position: 100% center;
+  }
 }
 .row-limit-size {
   width: 1300px;
@@ -157,7 +177,9 @@ export default {
   grid-template-columns: repeat(3, 1fr);
   grid-gap: 20px;
 }
-
+.cocktail-card:hover {
+  opacity: 80%;
+}
 .cocktail-card {
   background-color: transparent;
   color: #fff;

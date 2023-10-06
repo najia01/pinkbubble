@@ -48,7 +48,7 @@ export default {
 
     goToCocktailDetail(cocktailId) {
       const currentUrl = this.$router.currentRoute.fullPath;
-      // Passez l'URL en tant que paramètre lors de la navigation vers la page de détails du cocktail
+
       this.$router.push({
         name: "OneCocktailDetail",
         params: { idDrink: cocktailId, previousUrl: currentUrl },
@@ -80,7 +80,27 @@ export default {
   font-style: italic;
   text-align: center;
   margin-bottom: 20px;
-  color: deeppink;
+  background-image: linear-gradient(
+    -225deg,
+    #fd1d1d 0%,
+    #833ab4 29%,
+    #fd1d1d 67%,
+    #fcb045 100%
+  );
+  background-size: auto auto;
+  background-clip: border-box;
+  background-size: 200% auto;
+  color: #fff;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: textclip 5s linear infinite;
+}
+
+@keyframes textclip {
+  to {
+    background-position: 100% center;
+  }
 }
 .cocktail-list {
   padding: 0;
@@ -88,6 +108,7 @@ export default {
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
+  margin-top: 50px;
 }
 
 .CocktailName {
